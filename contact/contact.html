@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EventQuest - Trouve ton événement</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <div class="container navbar">
+        <div class="logo-title">
+          <img
+            class="logo"
+            src="/images/logo.png"
+            href="/index.html"
+            width="3%"
+            height="3%"
+          />
+          <a class="navbar-brand" href="/index.html">EventQuest</a>
+        </div>
+        <ul class="navbar-nav">
+          <li><a href="/about/about.html">À propos</a></li>
+          <li><a href="/events/event-details.html">Événements</a></li>
+          <li><a href="/contact/contact.html">Contact</a></li>
+        </ul>
+      </div>
+    </header>
+    <!-- Contact Section -->
+    <section class="container">
+      <h1>Contactez-nous</h1>
+      <p>
+        Si vous avez des questions ou souhaitez obtenir des informations
+        supplémentaires, n'hésitez pas à nous contacter via le formulaire
+        ci-dessous.
+      </p>
+      <form class="contact-form" action="#" method="post">
+        <div class="contact-form-name">
+          <label for="name">Nom :</label>
+          <input
+            placeholder="Écrivez votre nom"
+            type="text"
+            id="name"
+            name="name"
+            required
+          />
+        </div>
+        <div class="contact-form-email">
+          <label for="email">Email :</label>
+          <input placeholder="Écrivez votre email"Écrivez votre nom" om"
+          type="email" id="email" name="email" required />
+        </div>
+
+        <div class="contact-form-message">
+          <label for="message">Message :</label>
+          <textarea
+            placeholder="Écrivez votre message "
+            id="message"
+            name="message"
+            rows="5"
+            required
+          ></textarea>
+
+          <button type="submit" class="btn-primary">Envoyer</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2024 EventQuest. Tous droits réservés.</p>
+    </footer>
+  </body>
+</html>
