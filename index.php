@@ -276,7 +276,7 @@ $page = 'index';
             <div class="hero-content">
                 <h1>Bienvenue sur EventQuest</h1>
                 <p>Découvrez les meilleurs événements près de chez vous</p>
-                <a href="pages/event-details.php" class="btn btn-primary">Voir les événements</a>
+                <a href="pages/event_details.php" class="btn btn-primary">Voir les événements</a>
             </div>
             <!-- Flèche incitant à descendre -->
             <div class="scroll-down-arrow">
@@ -300,7 +300,7 @@ $page = 'index';
                                 <p class="card-text">
                                     <?php echo htmlspecialchars(substr($event['description'], 0, 100)) . '...'; ?>
                                 </p>
-                                <a href="pages/event-details.php?id=<?php echo $event['id']; ?>"
+                                <a href="pages/event_details.php?id=<?php echo $event['id']; ?>"
                                     class="btn btn-primary mt-auto">En savoir plus</a>
                             </div>
                         </div>
