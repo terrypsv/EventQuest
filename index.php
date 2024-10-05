@@ -224,7 +224,6 @@ $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
-    <!-- Header avec le bouton de mode sombre -->
     <header class="py-3" style="background-color: var(--primary-color);">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
@@ -233,10 +232,10 @@ $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
                 <a class="navbar-brand text-white" href="index.php" style="font-size: 1.5rem;">EventQuest</a>
             </div>
-            <ul class="nav">
+            <ul class="nav justify-content-center">
+                <!-- Ajout de justify-content-center pour centrer -->
                 <li class="nav-item"><a class="nav-link text-white" href="index.php">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="#evenements">Événements</a></li>
-                <!-- Lien ajouté -->
+                <li class="nav-item"><a class="nav-link text-white" href="pages/event_details.php">Événements</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="pages/about.php">À propos</a></li>
                 <li class="nav-item"><a class="nav-link text-white" href="pages/contact.php">Contact</a></li>
             </ul>

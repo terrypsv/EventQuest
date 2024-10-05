@@ -73,6 +73,26 @@ header {
   transition: background-color 0.3s ease;
 }
 
+/* Centrage du contenu de la navbar */
+header .navbar {
+  display: flex;
+  justify-content: center; /* Centrer le contenu */
+  align-items: center;
+  width: 100%;
+  max-width: 1200px; /* Largeur maximale pour centrer tout le contenu */
+  margin: 0 auto;
+}
+
+.navbar .nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-item {
+  margin: 0 10px;
+  /* Ajuste la marge entre les éléments pour un espacement équilibré */
+}
+
 .nav-link {
   color: var(--secondary-color);
   font-size: 1rem;
