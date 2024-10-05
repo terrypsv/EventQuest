@@ -14,6 +14,9 @@ $sql = "SELECT * FROM evenements ORDER BY date_evenement ASC LIMIT 6";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+$page = 'index';
+
 ?>
 
 <!DOCTYPE html>
@@ -184,6 +187,21 @@ $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
         text-align: center;
     }
 
+    /* Surlignement blanc épuré pour l'onglet actif */
+    .nav-link.active {
+        border-bottom: 2px solid #ffffff;
+        color: white !important;
+    }
+
+    .nav-link {
+        padding-bottom: 5px;
+    }
+
+    .nav-link:hover {
+        color: white;
+        text-decoration: none;
+    }
+
     /* Mode sombre */
     .dark-mode {
         background-color: var(--dark-bg);
@@ -232,17 +250,24 @@ $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
                 <a class="navbar-brand text-white" href="index.php" style="font-size: 1.5rem;">EventQuest</a>
             </div>
-            <ul class="nav justify-content-center">
-                <!-- Ajout de justify-content-center pour centrer -->
-                <li class="nav-item"><a class="nav-link text-white" href="index.php">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="pages/event_details.php">Événements</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="pages/about.php">À propos</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="pages/contact.php">Contact</a></li>
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white active" href="index.php">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="pages/event_details.php">Événements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="pages/about.php">À propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="pages/contact.php">Contact</a>
+                </li>
             </ul>
-            <!-- Bouton de bascule du mode sombre -->
             <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
         </div>
     </header>
+
 
 
     <!-- Hero Section avec la vidéo en fond -->

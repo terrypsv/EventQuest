@@ -1,3 +1,8 @@
+<?php
+// Définir la variable pour surligner l'onglet actif
+$page = 'about';
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -14,15 +19,71 @@
     html,
     body {
         height: 100%;
+        margin: 0;
+        padding: 0;
     }
 
     body {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        background-color: var(--secondary-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     main {
         flex: 1;
+    }
+
+    /* Surlignement blanc pour l'onglet actif */
+    .nav-link.active {
+        border-bottom: 2px solid #ffffff;
+        color: white !important;
+    }
+
+    .nav-link {
+        padding-bottom: 5px;
+    }
+
+    .nav-link:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    /* Mode sombre */
+    .dark-mode {
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+    }
+
+    .dark-mode header {
+        background-color: var(--dark-primary);
+    }
+
+    .dark-mode .nav-link.active {
+        border-bottom: 2px solid #ffffff;
+        color: var(--dark-text);
+    }
+
+    .dark-mode .container,
+    .dark-mode .text-center {
+        color: var(--dark-text);
+    }
+
+    /* Couleurs du bouton en mode sombre */
+    .dark-mode .btn-primary {
+        background-color: var(--btn-bg);
+        color: white;
+    }
+
+    .dark-mode .btn-primary:hover {
+        background-color: var(--btn-hover-bg);
+        color: black;
+    }
+
+    .dark-mode footer {
+        background-color: var(--dark-primary);
+        color: var(--dark-secondary);
     }
     </style>
 </head>
@@ -38,10 +99,23 @@
                 <a class="navbar-brand text-white" href="../index.php" style="font-size: 1.5rem;">EventQuest</a>
             </div>
             <ul class="nav">
-                <li class="nav-item"><a class="nav-link text-white" href="../index.php">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="contact.php">Contact</a></li>
+                <li class="nav-item">
+                    <a class="nav-link text-white <?= ($page == 'index') ? 'active' : '' ?>"
+                        href="../index.php">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white <?= ($page == 'event_details') ? 'active' : '' ?>"
+                        href="../pages/event_details.php">Événements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white <?= ($page == 'about') ? 'active' : '' ?>" href="about.php">À
+                        propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white <?= ($page == 'contact') ? 'active' : '' ?>"
+                        href="contact.php">Contact</a>
+                </li>
             </ul>
-            <!-- Bouton de bascule du mode sombre -->
             <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
         </div>
     </header>
@@ -53,10 +127,8 @@
             <div class="col-md-8">
                 <p class="text-center">
                     EventQuest est une plateforme permettant de découvrir et de participer aux événements les plus
-                    excitants
-                    de Paris. Que vous soyez passionné de concerts, d'expositions, ou d'événements sportifs, EventQuest
-                    est
-                    là pour vous permettre de trouver l'événement parfait.
+                    excitants de Paris. Que vous soyez passionné de concerts, d'expositions, ou d'événements sportifs,
+                    EventQuest est là pour vous permettre de trouver l'événement parfait.
                 </p>
             </div>
         </div>
@@ -93,7 +165,7 @@
     </script>
 
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

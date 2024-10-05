@@ -19,6 +19,9 @@ if (isset($_GET['error'])) {
             break;
     }
 }
+
+$page = 'contact';
+
 ?>
 
 <!DOCTYPE html>
@@ -41,13 +44,71 @@ if (isset($_GET['error'])) {
     body {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
+        background-color: var(--secondary-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     main {
         flex: 1;
     }
+
+    /* Brillance subtile pour les liens de navigation */
+    /* Surlignement blanc épuré pour l'onglet actif */
+    .nav-link.active {
+        border-bottom: 2px solid #ffffff;
+        color: white !important;
+    }
+
+    .nav-link {
+        padding-bottom: 5px;
+    }
+
+    .nav-link:hover {
+        color: white;
+        text-decoration: none;
+    }
+
+    @keyframes shine {
+        0% {
+            width: 0;
+        }
+
+        50% {
+            width: 100%;
+        }
+
+        100% {
+            width: 0;
+        }
+    }
     </style>
 </head>
+
+<!-- JavaScript pour gérer le mode sombre -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const darkModeToggle = document.getElementById("dark-mode-toggle");
+    const body = document.body;
+
+    // Vérifie si l'utilisateur a une préférence de mode sombre stockée dans le localStorage
+    if (localStorage.getItem("darkMode") === "enabled") {
+        body.classList.add("dark-mode");
+    }
+
+    // Bascule le mode sombre lorsque l'utilisateur clique sur le bouton
+    darkModeToggle.addEventListener("click", function() {
+        body.classList.toggle("dark-mode");
+
+        // Sauvegarde la préférence dans le localStorage
+        if (body.classList.contains("dark-mode")) {
+            localStorage.setItem("darkMode", "enabled");
+        } else {
+            localStorage.removeItem("darkMode");
+        }
+    });
+});
+</script>
 
 <body>
     <!-- Header avec le bouton de mode sombre -->
@@ -60,13 +121,23 @@ if (isset($_GET['error'])) {
                 <a class="navbar-brand text-white" href="../index.php" style="font-size: 1.5rem;">EventQuest</a>
             </div>
             <ul class="nav">
-                <li class="nav-item"><a class="nav-link text-white" href="../index.php">Accueil</a></li>
-                <li class="nav-item"><a class="nav-link text-white" href="about.php">À propos</a></li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../index.php">Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="../pages/event_details.php">Événements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="about.php">À propos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white active" href="contact.php">Contact</a>
+                </li>
             </ul>
-            <!-- Bouton de bascule du mode sombre -->
             <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
         </div>
     </header>
+
 
     <!-- Section de contact -->
     <main class="container py-5">
@@ -101,31 +172,6 @@ if (isset($_GET['error'])) {
     <footer class="text-center py-3" style="background-color: var(--primary-color); color: var(--secondary-color);">
         <p>&copy; 2024 EventQuest. Tous droits réservés.</p>
     </footer>
-
-    <!-- JavaScript pour gérer le mode sombre -->
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const darkModeToggle = document.getElementById("dark-mode-toggle");
-        const body = document.body;
-
-        // Vérifie si l'utilisateur a une préférence de mode sombre stockée dans le localStorage
-        if (localStorage.getItem("darkMode") === "enabled") {
-            body.classList.add("dark-mode");
-        }
-
-        // Bascule le mode sombre lorsque l'utilisateur clique sur le bouton
-        darkModeToggle.addEventListener("click", function() {
-            body.classList.toggle("dark-mode");
-
-            // Sauvegarde la préférence dans le localStorage
-            if (body.classList.contains("dark-mode")) {
-                localStorage.setItem("darkMode", "enabled");
-            } else {
-                localStorage.removeItem("darkMode");
-            }
-        });
-    });
-    </script>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
