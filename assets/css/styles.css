@@ -1,0 +1,169 @@
+:root {
+  --primary-color: #507bdc;
+  --secondary-color: #edf2f4;
+  --btn-bg: #04080f;
+  --btn-hover-bg: #a1c6ea;
+  --btn-hover-text: black;
+  --dark-bg: #333;
+  --dark-text: #fff;
+  --dark-primary: #222;
+  --dark-secondary: #b3d4fc;
+}
+
+.hero-section {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center; /* Assure que le texte est bien centré */
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url("assets/images/event4.jpg") no-repeat center center/cover;
+  opacity: 0.7;
+  z-index: 0;
+  backdrop-filter: blur(5px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  padding: 20px;
+  text-align: center; /* Centrage horizontal du texte */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrage horizontal du contenu */
+}
+
+.hero-content h1 {
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.hero-content a {
+  margin-top: 20px;
+  text-align: center; /* S'assure que le bouton est centré */
+}
+
+body {
+  font-family: "Poppins", sans-serif; /* Bootstrap utilise déjà une bonne gestion des polices */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  background-color: #dae3e5;
+  color: #333;
+}
+
+/* Header et Navbar */
+header {
+  background-color: var(--primary-color);
+  transition: background-color 0.3s ease;
+}
+
+.nav-link {
+  color: var(--secondary-color);
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: black;
+}
+
+/* Boutons personnalisés */
+.btn-primary {
+  background-color: var(--btn-bg);
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--btn-hover-text);
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+/* Mode sombre */
+.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark-mode header {
+  background-color: var(--dark-primary);
+}
+
+.dark-mode .nav-link {
+  color: var(--dark-secondary);
+}
+
+.dark-mode .btn-primary {
+  background-color: var(--btn-bg);
+  color: white;
+}
+
+.dark-mode .btn-primary:hover {
+  background-color: var(--btn-hover-bg);
+  color: black;
+}
+
+/* Ajustement des cartes d'événements */
+.card {
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Responsive - Ajustement pour les tablettes */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .jumbotron h1 {
+    font-size: 2.5rem;
+  }
+
+  .jumbotron p {
+    font-size: 1rem;
+  }
+
+  .cards {
+    flex-direction: column;
+  }
+
+  .card {
+    flex: 1 1 100%;
+  }
+}

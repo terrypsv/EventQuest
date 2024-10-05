@@ -1,0 +1,71 @@
+/* Global Styles */
+body {
+  font-family: "Poppins", sans-serif; /* Police de caractères principale */
+  background-color: #f4f4f4; /* Couleur de fond générale */
+  margin: 0;
+  padding: 0;
+}
+
+/* Header Styles */
+header {
+  background-color: #333; /* Couleur de fond du header */
+  color: white; /* Couleur du texte dans le header */
+  padding: 10px; /* Espacement interne (padding) */
+}
+
+/* Navigation Styles */
+nav ul {
+  list-style: none; /* Retire les puces des listes */
+  padding: 0; /* Retire le padding par défaut */
+}
+
+nav ul li {
+  display: inline; /* Affiche les éléments de liste sur une ligne */
+  margin-right: 15px; /* Espacement entre les éléments de liste */
+}
+
+nav ul li a {
+  color: white; /* Couleur des liens dans la barre de navigation */
+  text-decoration: none; /* Retire le soulignement des liens */
+}
+
+/* Heading Styles */
+h1 {
+  font-size: 2rem; /* Taille de la police pour les titres h1 */
+  color: #333; /* Couleur du texte */
+}
+
+/* Table Styles */
+table {
+  width: 100%; /* La table occupe toute la largeur de son conteneur */
+  border-collapse: collapse; /* Fusionne les bordures des cellules */
+  margin: 20px 0; /* Marge en haut et en bas de la table */
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd; /* Bordure des cellules */
+}
+
+th,
+td {
+  padding: 10px; /* Espacement interne dans les cellules */
+  text-align: left; /* Alignement du texte à gauche */
+}
+
+th {
+  background-color: #333; /* Couleur de fond pour l'en-tête de la table */
+  color: white; /* Couleur du texte dans l'en-tête */
+}
+
+/* Stat Box Styles */
+.stat-box {
+  display: inline-block; /* Affiche les éléments en ligne, comme un bloc */
+  width: 30%; /* Largeur de chaque boîte statistique */
+  padding: 20px; /* Espacement interne dans la boîte */
+  background-color: #fff; /* Couleur de fond blanche */
+  margin: 10px; /* Espacement autour de chaque boîte */
+  text-align: center; /* Centre le texte à l'intérieur de la boîte */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Effet d'ombre sous la boîte */
+}
