@@ -1,5 +1,14 @@
 <?php
-include_once __DIR__ . '/../includes/db_connection.php';
+include_once __DIR__ . '/../includes/db_connection.php'; // Connexion à la base de données
+require __DIR__ . '/../vendor/autoload.php'; // Inclure le fichier autoload de Composer
+
+// Importer les classes PHPMailer
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+use Dotenv\Dotenv;
+
+$pdo = getDatabaseConnection();  // Appelle la fonction pour récupérer la connexion PDO
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer les valeurs du formulaire
@@ -7,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $mot_de_passe = trim($_POST['mot_de_passe']);
     $nom_complet = trim($_POST['nom_complet']);
-    $role = $_POST['role'];  // Récupérer le rôle choisi (utilisateur ou agence)
+    $role = $_POST['role'];
 
     // Validation des données côté serveur
     if (empty($nom_utilisateur) || empty($email) || empty($mot_de_passe)) {
@@ -18,65 +27,56 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Hachage du mot de passe
         $mot_de_passe_hash = password_hash($mot_de_passe, PASSWORD_DEFAULT);
 
+        // Générer un token de vérification aléatoire
+        $token = bin2hex(random_bytes(50));
+
         // Requête SQL pour insérer l'utilisateur
-        $query = "INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe, nom_complet, role) VALUES (:nom_utilisateur, :email, :mot_de_passe, :nom_complet, :role)";
+        $query = "INSERT INTO utilisateurs (nom_utilisateur, email, mot_de_passe, nom_complet, role, token_verification) VALUES (:nom_utilisateur, :email, :mot_de_passe, :nom_complet, :role, :token)";
         $stmt = $pdo->prepare($query);
         $stmt->bindParam(':nom_utilisateur', $nom_utilisateur);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':mot_de_passe', $mot_de_passe_hash);
         $stmt->bindParam(':nom_complet', $nom_complet);
-        $stmt->bindParam(':role', $role);  // Le rôle sera utilisateur ou agence selon le choix
+        $stmt->bindParam(':role', $role);
+        $stmt->bindParam(':token', $token);
 
         if ($stmt->execute()) {
-            echo "Inscription réussie. Vous pouvez maintenant vous connecter.";
-            // Redirection vers la page de connexion après quelques secondes
-            header("refresh:2;url=/login.php");
+            // Envoyer l'e-mail de vérification
+            envoyerEmailVerification($email, $token);
+            echo "Inscription réussie. Un e-mail de vérification vous a été envoyé.";
         } else {
             echo "Erreur lors de l'inscription.";
         }
     }
 }
-?>
 
-<!DOCTYPE html>
-<html lang="fr">
+// Fonction pour envoyer l'e-mail de vérification
+function envoyerEmailVerification($email, $token) {
+    $mail = new PHPMailer(true);  // Créer une instance de PHPMailer
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
-    <link rel="stylesheet" href="/assets/css/styles.css">
-</head>
+    try {
+        // Configuration du SMTP
+        $mail->isSMTP();
+        $mail->Host = 'ssl0.ovh.net';  // Serveur SMTP OVH
+        $mail->SMTPAuth = true;
+        $mail->Username = 'contact@eventquest.ovh';  // Adresse e-mail OVH
+        $mail->Password = getenv('SMTP_PASSWORD');
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;  // Utiliser SSL
+        $mail->Port = 465;
 
-<body>
-    <h1>Inscription</h1>
-    <form method="POST" action="">
-        <label for="nom_utilisateur">Nom d'utilisateur :</label>
-        <input type="text" id="nom_utilisateur" name="nom_utilisateur" required><br>
+        // Paramètres de l'e-mail
+        $mail->setFrom('contact@eventquest.ovh', 'EventQuest');  // Adresse et nom d’expéditeur
+        $mail->addAddress($email);  // Adresse e-mail du destinataire
 
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" required><br>
+        // Contenu de l'e-mail
+        $mail->isHTML(true);  // Format HTML
+        $mail->Subject = 'Vérification de votre adresse e-mail';
+        $mail->Body    = "Cliquez sur ce lien pour vérifier votre e-mail : <a href='http://eventquest.ovh/verify.php?token=$token'>Vérifier l'e-mail</a>";
 
-        <label for="mot_de_passe">Mot de passe :</label>
-        <input type="password" id="mot_de_passe" name="mot_de_passe" required><br>
-
-        <label for="nom_complet">Nom complet :</label>
-        <input type="text" id="nom_complet" name="nom_complet"><br>
-
-        <label for="role">Je m'inscris en tant que :</label>
-        <select id="role" name="role" required>
-            <option value="utilisateur">Utilisateur</option>
-            <option value="agence">Agence</option>
-        </select><br>
-
-        <button type="submit">S'inscrire</button>
-    </form>
-
-    <a href="/login.php">Déjà inscrit ? Connectez-vous ici</a>
-
-    <footer>
-        <p>&copy; 2024 EventQuest. Tous droits réservés.</p>
-    </footer>
-</body>
-
-</html>
+        // Envoyer l'e-mail
+        $mail->send();
+        echo 'E-mail de vérification envoyé.';
+    } catch (Exception $e) {
+        echo "Erreur lors de l'envoi de l'e-mail : {$mail->ErrorInfo}";
+    }
+}

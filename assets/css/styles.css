@@ -10,6 +10,31 @@
   --dark-secondary: #b3d4fc;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+label {
+  color: black; /* Couleur noire en mode jour */
+}
+
+footer {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  text-align: center;
+  padding: 20px 0;
+  width: 100%;
+  margin-top: auto; /* Cette propriété assure que le footer est toujours en bas */
+}
+
 .hero-section {
   position: relative;
   height: 100vh;
@@ -105,9 +130,10 @@ header .navbar {
 
 /* Boutons personnalisés */
 .btn-primary {
-  background-color: var(--btn-bg);
+  background-color: #007bff;
   color: white;
   transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
 }
 
 .btn-primary:hover {
@@ -135,18 +161,52 @@ footer {
   background-color: var(--dark-primary);
 }
 
+/* Mode sombre - rendre les labels visibles */
+.dark-mode label {
+  color: white; /* Blanc pour les labels en mode nuit */
+}
+
 .dark-mode .nav-link {
   color: var(--dark-secondary);
 }
 
 .dark-mode .btn-primary {
-  background-color: var(--btn-bg);
+  background-color: #333;
   color: white;
 }
 
 .dark-mode .btn-primary:hover {
   background-color: var(--btn-hover-bg);
   color: black;
+}
+
+.dark-mode .bg-light {
+  background-color: #333 !important; /* Change le fond du carré blanc en mode sombre */
+  color: white !important; /* Ajuste la couleur du texte pour être visible */
+  border: 0.5px solid #555 !important; /* Bordure plus subtile si nécessaire */
+}
+
+/* Mode sombre - Changer la couleur de fond du formulaire */
+.dark-mode form {
+  background-color: #333; /* Fond noir pour le formulaire */
+  color: black; /* Texte blanc dans le formulaire */
+  border: none; /* Supprimer la bordure si nécessaire */
+}
+
+/* Ajuster les champs de saisie pour s'assurer qu'ils restent visibles */
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea {
+  background-color: #444; /* Fond légèrement plus clair pour les champs */
+  color: white; /* Texte blanc dans les champs */
+  border: 1px solid #555; /* Bordure des champs */
+  border-radius: 5px; /* Facultatif : arrondir légèrement les coins */
+}
+
+.dark-mode input::placeholder,
+.dark-mode select::placeholder,
+.dark-mode textarea::placeholder {
+  color: #bbb; /* Placeholder avec un contraste correct */
 }
 
 /* Ajustement des cartes d'événements */

@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 // Définir la variable pour surligner l'onglet actif
 $page = 'about';
 ?>
@@ -72,7 +74,7 @@ $page = 'about';
 
     /* Couleurs du bouton en mode sombre */
     .dark-mode .btn-primary {
-        background-color: var(--btn-bg);
+        background-color: #333;
         color: white;
     }
 
@@ -89,34 +91,49 @@ $page = 'about';
 </head>
 
 <body>
-    <!-- Header avec le bouton de mode sombre -->
     <header class="py-3" style="background-color: var(--primary-color);">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <a href="../index.php">
-                    <img class="me-2" src="../assets/images/logo.png" alt="Logo EventQuest" width="40" height="40" />
+                <!-- Logo avec chemin absolu -->
+                <a href="/index.php">
+                    <img class="me-2" src="/assets/images/logo.png" alt="Logo EventQuest" width="40" height="40" />
                 </a>
-                <a class="navbar-brand text-white" href="../index.php" style="font-size: 1.5rem;">EventQuest</a>
+                <!-- Titre de la marque -->
+                <a class="navbar-brand text-white" href="/index.php" style="font-size: 1.5rem;">EventQuest</a>
             </div>
             <ul class="nav">
+                <!-- Liens de navigation avec gestion de la classe active dynamiquement -->
                 <li class="nav-item">
-                    <a class="nav-link text-white <?= ($page == 'index') ? 'active' : '' ?>"
-                        href="../index.php">Accueil</a>
+                    <a class="nav-link text-white <?php if ($page === 'index') echo 'active'; ?>"
+                        href="/index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white <?= ($page == 'event_details') ? 'active' : '' ?>"
-                        href="../pages/event_details.php">Événements</a>
+                    <a class="nav-link text-white <?php if ($page === 'event_details') echo 'active'; ?>"
+                        href="/pages/event_details.php">Événements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white <?= ($page == 'about') ? 'active' : '' ?>" href="about.php">À
-                        propos</a>
+                    <a class="nav-link text-white <?php if ($page === 'about') echo 'active'; ?>"
+                        href="/pages/about.php">À propos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white <?= ($page == 'contact') ? 'active' : '' ?>"
-                        href="contact.php">Contact</a>
+                    <a class="nav-link text-white <?php if ($page === 'contact') echo 'active'; ?>"
+                        href="/pages/contact.php">Contact</a>
                 </li>
             </ul>
-            <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
+            <div class="d-flex">
+                <!-- Vérification de la session utilisateur pour afficher les boutons appropriés -->
+                <?php if (!isset($_SESSION['user_id'])): ?>
+                <!-- Boutons S'inscrire et Se connecter si l'utilisateur n'est pas connecté -->
+                <a href="/pages/signup.php" class="btn btn-primary me-2">S'inscrire</a>
+                <a href="/pages/login.php" class="btn btn-outline-light me-3">Se connecter</a>
+                <?php else: ?>
+                <!-- Boutons Mon Profil et Se déconnecter si l'utilisateur est connecté -->
+                <a href="/pages/profil.php" class="btn btn-success me-3">Mon Profil</a>
+                <a href="/pages/logout.php" class="btn btn-danger">Se déconnecter</a>
+                <?php endif; ?>
+                <!-- Bouton Mode Sombre -->
+                <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
+            </div>
         </div>
     </header>
 

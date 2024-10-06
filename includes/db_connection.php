@@ -1,14 +1,18 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+require __DIR__ . '/../vendor/autoload.php'; // Charger Composer et dotenv
+
+use Dotenv\Dotenv;  // Utilisation correcte de la classe Dotenv
+
+// Charger le fichier .env
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../'); // Utilisation correcte du chemin pour charger .env
+$dotenv->load();
 
 // Paramètres de connexion à la base de données
-$host = 'localhost:8889'; // Pour un environnement local, remplacer l'IP par localhost
-$dbname = 'eventquest';
-$username = 'eventquest_user';
-$password = 'root';
+$host = $_ENV['DB_HOST'];
+$dbname = $_ENV['DB_DATABASE'];
+$username = $_ENV['DB_USERNAME'];
+$password = $_ENV['DB_PASSWORD'];
 
 // Fonction pour établir la connexion à la base de données
 function getDatabaseConnection() {
@@ -28,6 +32,3 @@ function getDatabaseConnection() {
         die("Erreur de connexion. Veuillez réessayer plus tard.");
     }
 }
-
-// Exemple d'utilisation :
-// $db = getDatabaseConnection();

@@ -1,0 +1,18 @@
+# Forcer toutes les requêtes HTTP à être redirigées vers HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Rediriger les erreurs 404 et 500 vers des pages personnalisées
+ErrorDocument 404 /errors/404.php
+ErrorDocument 500 /errors/500.php
+
+# Empêcher l'accès direct aux fichiers PHP dans certains répertoires
+#<FilesMatch "\.php$">
+#    Deny from all
+#</FilesMatch>
+
+# Permettre l'accès aux fichiers PHP dans certains répertoires spécifiques comme "includes"
+#<Directory "/includes">
+#    Allow from all
+#</Directory>

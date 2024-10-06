@@ -2,10 +2,6 @@
 // Inclusion de la connexion à la base de données
 include 'includes/db_connection.php';
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 // Obtenir la connexion PDO à la base de données
 $pdo = getDatabaseConnection(); // Utilisation de la fonction pour récupérer l'objet PDO
 
@@ -15,8 +11,11 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $evenements = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$page = 'index';
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+$page = 'index';
 ?>
 
 <!DOCTYPE html>
@@ -225,7 +224,7 @@ $page = 'index';
     }
 
     .dark-mode .btn-primary {
-        background-color: var(--btn-bg);
+        background-color: #333;
         color: white;
     }
 
@@ -245,30 +244,48 @@ $page = 'index';
     <header class="py-3" style="background-color: var(--primary-color);">
         <div class="container d-flex justify-content-between align-items-center">
             <div class="d-flex align-items-center">
-                <a href="index.php">
-                    <img class="me-2" src="assets/images/logo.png" alt="Logo EventQuest" width="40" height="40" />
+                <!-- Logo avec chemin absolu -->
+                <a href="/index.php">
+                    <img class="me-2" src="/assets/images/logo.png" alt="Logo EventQuest" width="40" height="40" />
                 </a>
-                <a class="navbar-brand text-white" href="index.php" style="font-size: 1.5rem;">EventQuest</a>
+                <!-- Titre de la marque -->
+                <a class="navbar-brand text-white" href="/index.php" style="font-size: 1.5rem;">EventQuest</a>
             </div>
             <ul class="nav">
+                <!-- Liens de navigation avec gestion de la classe active dynamiquement -->
                 <li class="nav-item">
-                    <a class="nav-link text-white active" href="index.php">Accueil</a>
+                    <a class="nav-link text-white <?php if ($page === 'index') echo 'active'; ?>"
+                        href="/index.php">Accueil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="pages/event_details.php">Événements</a>
+                    <a class="nav-link text-white <?php if ($page === 'event_details') echo 'active'; ?>"
+                        href="/pages/event_details.php">Événements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="pages/about.php">À propos</a>
+                    <a class="nav-link text-white <?php if ($page === 'about') echo 'active'; ?>"
+                        href="/pages/about.php">À propos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="pages/contact.php">Contact</a>
+                    <a class="nav-link text-white <?php if ($page === 'contact') echo 'active'; ?>"
+                        href="/pages/contact.php">Contact</a>
                 </li>
             </ul>
-            <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
+            <div class="d-flex">
+                <!-- Vérification de la session utilisateur pour afficher les boutons appropriés -->
+                <?php if (!isset($_SESSION['user_id'])): ?>
+                <!-- Boutons S'inscrire et Se connecter si l'utilisateur n'est pas connecté -->
+                <a href="/pages/signup.php" class="btn btn-primary me-2">S'inscrire</a>
+                <a href="/pages/login.php" class="btn btn-outline-light me-3">Se connecter</a>
+                <?php else: ?>
+                <!-- Boutons Mon Profil et Se déconnecter si l'utilisateur est connecté -->
+                <a href="/pages/profil.php" class="btn btn-success me-3">Mon Profil</a>
+                <a href="/pages/logout.php" class="btn btn-danger">Se déconnecter</a>
+                <?php endif; ?>
+                <!-- Bouton Mode Sombre -->
+                <button id="dark-mode-toggle" class="btn btn-dark">Mode Sombre</button>
+            </div>
         </div>
     </header>
-
-
 
     <!-- Hero Section avec la vidéo en fond -->
     <main>
